@@ -20,38 +20,11 @@ MongoClient.connect(
     }
     const db = client.db(databaseName);
 
-    // undating documents
-    // switch someones name by targeting _id
+    //deleteing all users with age 28
     // db.collection("users")
-    //   .updateOne(
-    //     {
-    //       _id: new ObjectID("5d252dc972c41b05b2eb213e")
-    //     },
-    //     {
-    //       $set: {
-    //         name: "Mike"
-    //       }
-    //     }
-    //   )
-    //   .then(result => {
-    //     console.log(result);
+    //   .deleteMany({
+    //     age: 28
     //   })
-    //   .catch(error => {
-    //     console.log(error);
-    //   });
-
-    /* incrementing age */
-    // db.collection("users")
-    //   .updateOne(
-    //     {
-    //       _id: new ObjectID("5d252dc972c41b05b2eb213e")
-    //     },
-    //     {
-    //       $inc: {
-    //         age: 1
-    //       }
-    //     }
-    //   )
     //   .then(result => {
     //     console.log(result);
     //   })
@@ -60,22 +33,14 @@ MongoClient.connect(
     //   });
 
     /**
-     * Goal:  Use updateMany to complete all tasks
+     * Goal: use deleteOne to remove a task
      */
-
     db.collection("tasks")
-      .updateMany(
-        {
-          completed: false
-        },
-        {
-          $set: {
-            completed: true
-          }
-        }
-      )
+      .deleteOne({
+        description: "Clean the house"
+      })
       .then(result => {
-        console.log(result.modifiedCount);
+        console.log(result);
       })
       .catch(error => {
         console.log(error);
