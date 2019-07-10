@@ -20,51 +20,65 @@ MongoClient.connect(
     }
     const db = client.db(databaseName);
 
-    //fetching data out of datbase by name
-    // db.collection("users").findOne({ name: "Jen" }, (error, user) => {
-    //   if (error) {
-    //     return console.log("Unable to fetch");
-    //   }
-    //   console.log(user);
-    // });
-
-    // fetching by _id
-    // db.collection("users").findOne(
-    //   { _id: new ObjectID("5d2530a1bfd82105c8b0ae55") },
-    //   (error, user) => {
-    //     if (error) {
-    //       return console.log("Unable to fetch");
+    // undating documents
+    // switch someones name by targeting _id
+    // db.collection("users")
+    //   .updateOne(
+    //     {
+    //       _id: new ObjectID("5d252dc972c41b05b2eb213e")
+    //     },
+    //     {
+    //       $set: {
+    //         name: "Mike"
+    //       }
     //     }
-    //     console.log(user);
-    //   }
-    // );
-
-    //fetching multiple documents
-    // db.collection("users")
-    //   .find({ age: 27 })
-    //   .toArray((error, users) => {
-    //     console.log(users);
+    //   )
+    //   .then(result => {
+    //     console.log(result);
+    //   })
+    //   .catch(error => {
+    //     console.log(error);
     //   });
 
+    /* incrementing age */
     // db.collection("users")
-    //   .find({ age: 27 })
-    //   .count((error, count) => {
-    //     console.log(count);
+    //   .updateOne(
+    //     {
+    //       _id: new ObjectID("5d252dc972c41b05b2eb213e")
+    //     },
+    //     {
+    //       $inc: {
+    //         age: 1
+    //       }
+    //     }
+    //   )
+    //   .then(result => {
+    //     console.log(result);
+    //   })
+    //   .catch(error => {
+    //     console.log(error);
     //   });
 
-    //fetching a task by _id
-    db.collection("tasks").findOne(
-      { _id: new ObjectID("5d25330e9e4deb05ecd84681") },
-      (error, task) => {
-        console.log(task);
-      }
-    );
+    /**
+     * Goal:  Use updateMany to complete all tasks
+     */
 
-    // finding all the tasks that need to be done still
     db.collection("tasks")
-      .find({ completed: false })
-      .toArray((error, tasks) => {
-        console.log(tasks);
+      .updateMany(
+        {
+          completed: false
+        },
+        {
+          $set: {
+            completed: true
+          }
+        }
+      )
+      .then(result => {
+        console.log(result.modifiedCount);
+      })
+      .catch(error => {
+        console.log(error);
       });
   }
 );
