@@ -88,12 +88,6 @@ app.get("/tasks/:id", (req, res) => {
       res.status(500).send();
     });
 });
-/**
- * Goal: Setup the task reading endpoints
- *  - create an endpoint for fetching all tasks
- *  - then another for fetching task by id
- *  - setup new requests in postman and test your work
- */
 
 app.listen(port, () => {
   console.log("Server is on port " + port);
