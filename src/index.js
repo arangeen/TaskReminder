@@ -13,13 +13,23 @@ app.use(express.json());
 app.use(userRouter);
 app.use(taskRouter);
 
-/**
- * Goal: Create user and task router
- *      - create new file that creates/exports new router
- *      - move all the routes over
- *      - load in and use that router with the express app
- */
-
 app.listen(port, () => {
   console.log("Server is on port " + port);
 });
+
+// used for hashing passwords
+const bcrypt = require("bcryptjs");
+
+const myFunction = async () => {
+  const password = "Red12345!";
+  // 8 is the number of times we want password to be hashed
+  const hashedPassword = await bcrypt.hash(password, 8);
+
+  console.log(password);
+  console.log(hashedPassword);
+
+  const isMatch = await bcrypt.compare("Red12345!", hashedPassword);
+  console.log(isMatch);
+};
+
+myFunction();
