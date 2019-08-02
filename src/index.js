@@ -18,18 +18,15 @@ app.listen(port, () => {
 });
 
 // used for hashing passwords
-const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 const myFunction = async () => {
-  const password = "Red12345!";
-  // 8 is the number of times we want password to be hashed
-  const hashedPassword = await bcrypt.hash(password, 8);
-
-  console.log(password);
-  console.log(hashedPassword);
-
-  const isMatch = await bcrypt.compare("Red12345!", hashedPassword);
-  console.log(isMatch);
+  const token = jwt.sign({ _id: "abc123" }, "thisismynewcourse", {
+    expiresIn: "7 days"
+  });
+  console.log(token);
+  const data = jwt.verify(token, "thisismynewcourse");
+  console.log(data);
 };
 
 myFunction();
